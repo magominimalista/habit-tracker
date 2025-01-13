@@ -64,7 +64,7 @@ export function WeatherInfo({ className = '' }: WeatherInfoProps) {
   return (
     <div className={`
       flex items-center gap-3 px-4 py-3 bg-gray-800/50 
-      rounded-lg border border-gray-700/50 backdrop-blur-sm
+      rounded-lg backdrop-blur-sm
       ${className}
     `}>
       <div className="text-3xl text-gray-200">

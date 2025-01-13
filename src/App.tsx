@@ -11,6 +11,7 @@ import { FiSettings } from 'react-icons/fi'
 import { SettingsModal } from './components/SettingsModal'
 import { startOfDay } from 'date-fns'
 import { WeatherInfo } from './components/WeatherInfo'
+import { RemainingHabitsWidget } from './components/RemainingHabitsWidget'
 import { DeleteConfirmationModal } from './components/DeleteConfirmationModal'
 
 function App() {
@@ -208,7 +209,10 @@ function App() {
                 <h1 className="text-3xl font-bold text-white">
                   {getGreeting()}, {nickname}!
                 </h1>
-                <WeatherInfo />
+                <div className="flex gap-4">
+                  <WeatherInfo />
+                  <RemainingHabitsWidget habits={habits} completedHabits={completedHabits} />
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <button 

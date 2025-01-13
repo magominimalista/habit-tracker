@@ -85,4 +85,13 @@ export class StorageService {
     const location = localStorage.getItem(STORAGE_KEYS.LOCATION)
     return location ? JSON.parse(location) : null
   }
+
+  static getTodayEntries(): Set<string> {
+    const today = startOfDay(new Date()).toISOString()
+    const entries = this.getEntries()
+    const todayEntries = entries.filter(entry => 
+      startOfDay(new Date(entry.date)).toISOString() === today
+    )
+    return new Set(todayEntries.map(entry => entry.habitId))
+  }
 } 

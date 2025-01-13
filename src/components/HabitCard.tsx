@@ -29,7 +29,7 @@ export function HabitCard({ habit, onEdit, completed, onToggleComplete }: HabitC
   
   return (
     <div 
-      className={`py-2 px-4 rounded-lg flex justify-between items-center ${completed ? 'opacity-50' : ''}`}
+      className={`py-2 px-4 rounded-lg flex justify-between items-center ${completed ? 'opacity-10' : ''}`}
       style={{ 
         backgroundColor: habit.color,
         color: textColor
@@ -38,10 +38,11 @@ export function HabitCard({ habit, onEdit, completed, onToggleComplete }: HabitC
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleComplete}
-          className="p-1 rounded-full hover:bg-black/20"
+          className={`p-1 rounded-full hover:bg-black/20 ${completed ? 'opacity-100' : 'opacity-80'}`}
           style={{ color: textColor }}
+          disabled={completed} // Disable button if completed is true
         >
-          <FiCheck size={16} className={completed ? 'opacity-100' : 'opacity-50'} />
+          <FiCheck size={16} className={completed ? 'opacity-100' : 'opacity-80'} />
         </button>
         <div>
           <h3 className="font-semibold leading-tight">{habit.name}</h3>

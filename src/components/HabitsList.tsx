@@ -1,5 +1,6 @@
 import { Habit } from '../types/Habit'
 import { HabitCard } from './HabitCard'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface HabitsListProps {
   habits: Habit[]
@@ -31,7 +32,12 @@ export function HabitsList({
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{ x: -100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: 100, opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       {showProgress && (
         <div className="mb-6">
           <div className="w-1/4 h-1 bg-gray-700 rounded-full overflow-hidden mb-2">
@@ -50,16 +56,18 @@ export function HabitsList({
       )}
 
       <div className="space-y-2">
-        {habits.map(habit => (
-          <HabitCard
-            key={habit.id}
-            habit={habit}
-            completed={completedHabits.has(habit.id)}
-            onToggleComplete={() => onToggleComplete(habit.id)}
-            onEdit={() => onEditHabit(habit)}
-          />
-        ))}
+        <AnimatePresence>
+          {habits.map(habit => (
+            <HabitCard
+              key={habit.id}
+              habit={habit}
+              completed={completedHabits.has(habit.id)}
+              onToggleComplete={() => onToggleComplete(habit.id)}
+              onEdit={() => onEditHabit(habit)}
+            />
+          ))}
+        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   )
 } 
