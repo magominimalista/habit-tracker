@@ -1,50 +1,77 @@
-# React + TypeScript + Vite
+# 📝 Habit Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um aplicativo web para acompanhamento de hábitos diários, construído com React, TypeScript e Vite.
 
-Currently, two official plugins are available:
+## ✨ Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📋 Criação e gerenciamento de hábitos personalizados
+- 🎨 Personalização de cores para cada hábito
+- 🌤️ Integração com previsão do tempo
+- 📊 Acompanhamento de progresso diário
+- 💾 Armazenamento local dos dados
+- 🌙 Tema dark mode
+- 📱 Design responsivo
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologias
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [OpenWeather API](https://openweathermap.org/api)
+- [date-fns](https://date-fns.org/)
+- [Zod](https://zod.dev/)
 
-- Configure the top-level `parserOptions` property like this:
+## 💻 Pré-requisitos
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Node.js (versão 16 ou superior)
+- npm ou yarn
+- Uma chave de API do OpenWeather
+
+## 🛠️ Instalação
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/magominimalista/habit-tracker.git
+cd habit-tracker
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Instale as dependências:
+```bash
+npm install
 ```
+
+3. Configure as variáveis de ambiente:
+```bash
+cp .env.example .env
+```
+Edite o arquivo `.env` e adicione sua chave de API do OpenWeather.
+
+4. Inicie o servidor de desenvolvimento:
+```bash
+npm run dev
+```
+
+## 🤝 Contribuindo
+
+Contribuições são sempre bem-vindas! Por favor, leia as [diretrizes de contribuição](CONTRIBUTING.md) primeiro.
+
+1. Faça um fork do projeto
+2. Crie sua branch de feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 👤 Autor
+
+**Luiz Felipe**
+
+* Github: [@magominimalista](https://github.com/magominimalista)
+
+## ⭐️ Mostre seu apoio
+
+Dê uma ⭐️ se este projeto te ajudou!
