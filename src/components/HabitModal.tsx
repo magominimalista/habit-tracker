@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Habit } from '../types/Habit'
+import { Z_INDEX } from '../constants/zIndex'
 
 interface HabitModalProps {
   habit?: Habit | null
   onSave: (habit: Omit<Habit, 'id' | 'createdAt'>) => void
   onClose: () => void
-  onDelete?: (id: string) => void
+  onDelete?: (habit: Habit) => void
 }
 
 export function HabitModal({ habit, onSave, onClose, onDelete }: HabitModalProps) {
@@ -20,19 +21,22 @@ export function HabitModal({ habit, onSave, onClose, onDelete }: HabitModalProps
   }
 
   const handleDelete = () => {
-    if (habit && onDelete && confirm('Tem certeza que deseja excluir este hábito?')) {
-      onDelete(habit.id)
-      onClose()
+    if (habit && onDelete) {
+      onDelete(habit)
     }
   }
 
   return (
     <>
       <div 
-        className="fixed inset-0 bg-black/70 z-overlay transition-opacity"
+        className="fixed inset-0 bg-black/70 transition-opacity"
+        style={{ zIndex: Z_INDEX.OVERLAY }}
         onClick={onClose}
       />
-      <div className="fixed inset-0 flex items-center justify-center z-modal p-4">
+      <div 
+        className="fixed inset-0 flex items-center justify-center p-4"
+        style={{ zIndex: Z_INDEX.MODAL }}
+      >
         <div 
           className="bg-gray-800 p-6 rounded-lg w-full max-w-md text-white shadow-xl"
           onClick={e => e.stopPropagation()}

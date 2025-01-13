@@ -11,6 +11,7 @@ import { FiSettings } from 'react-icons/fi'
 import { SettingsModal } from './components/SettingsModal'
 import { startOfDay } from 'date-fns'
 import { WeatherInfo } from './components/WeatherInfo'
+import { DeleteConfirmationModal } from './components/DeleteConfirmationModal'
 
 function App() {
   const [nickname, setNickname] = useState<string | null>(null)
@@ -21,6 +22,7 @@ function App() {
   const [completedHabits, setCompletedHabits] = useState<Set<string>>(new Set())
   const [activeTab, setActiveTab] = useState<'today' | 'week' | 'all'>('today')
   const [showSettingsModal, setShowSettingsModal] = useState(false)
+  const [habitToDelete, setHabitToDelete] = useState<Habit | null>(null)
 
   useEffect(() => {
     const savedNickname = StorageService.getNickname()
@@ -72,12 +74,34 @@ function App() {
     setHabitToEdit(null)
   }
 
-  const handleDeleteHabit = (id: string) => {
-    if (confirm('Tem certeza que deseja excluir este hábito?')) {
-      const updatedHabits = habits.filter(h => h.id !== id)
-      setHabits(updatedHabits)
-      StorageService.saveHabits(updatedHabits)
-    }
+  const handleDeleteHabit = (habit: Habit) => {
+    setHabitToDelete(habit)
+  }
+
+  const confirmDelete = () => {
+    if (!habitToDelete) return
+
+    // Remove o hábito da lista
+    const updatedHabits = habits.filter(h => h.id !== habitToDelete.id)
+    setHabits(updatedHabits)
+    StorageService.saveHabits(updatedHabits)
+
+    // Remove todas as conclusões do hábito
+    const completions = StorageService.getCompletions()
+    const updatedCompletions = completions.filter(c => c.habitId !== habitToDelete.id)
+    StorageService.saveCompletions(updatedCompletions)
+
+    // Remove do set de hábitos completados hoje
+    const newCompleted = new Set(completedHabits)
+    newCompleted.delete(habitToDelete.id)
+    setCompletedHabits(newCompleted)
+
+    // Fecha o modal de edição se estiver aberto
+    setShowHabitModal(false)
+    setHabitToEdit(null)
+    
+    // Limpa o hábito a ser deletado
+    setHabitToDelete(null)
   }
 
   const toggleHabitComplete = (habitId: string) => {
@@ -145,6 +169,14 @@ function App() {
     <div className="min-h-screen bg-gray-900 p-4">
       {showNicknameModal && (
         <NicknameModal onComplete={handleNicknameComplete} />
+      )}
+
+      {habitToDelete && (
+        <DeleteConfirmationModal
+          habitName={habitToDelete.name}
+          onConfirm={confirmDelete}
+          onCancel={() => setHabitToDelete(null)}
+        />
       )}
 
       {showHabitModal && (
